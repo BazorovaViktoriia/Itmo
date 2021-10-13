@@ -20,8 +20,10 @@ public class DigitsSum {
             int a=n%10;
             sum=sum+a;
             n=n/10;
+
         }
 
         return sum;
     }
 }
+
