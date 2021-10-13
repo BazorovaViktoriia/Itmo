@@ -18,7 +18,7 @@ public class Factorial {
     }
 
     public static long factorial(int n) {
-        int multy = 1;
+        long multy = 1;
         for (int i =1; i<=n; i++) {
             multy = multy*i;
         }
