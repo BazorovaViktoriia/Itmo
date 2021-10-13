@@ -22,7 +22,6 @@ public class Factorial {
         for (int i =1; i<=n; i++) {
             multy = multy*i;
         }
-
         return multy;
     }
 }
