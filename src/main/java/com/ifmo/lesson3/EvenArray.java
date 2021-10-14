@@ -12,7 +12,6 @@ public class EvenArray {
         for (int i :evenArray) System.out.printf(i+" ");
         System.out.println("");
         for (int i :evenArray) System.out.println(i);
-
     }
 
     public static int[] evenArray() {
