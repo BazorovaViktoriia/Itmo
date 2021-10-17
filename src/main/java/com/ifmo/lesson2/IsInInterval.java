@@ -19,8 +19,7 @@ public class IsInInterval {
 
     public static int randomInt() {
         Random num = new Random();
-        int a = 5+ num.nextInt(155);
-
+        int a = 4+ num.nextInt(155);
         return a;
     }
 
