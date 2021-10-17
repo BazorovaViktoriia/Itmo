@@ -28,15 +28,10 @@ public class SquareEquation {
         if (dis > 0) {
             arr[0] = (-b - Math.sqrt(dis)) / (2 * a);
             arr[1] = (-b + Math.sqrt(dis)) / (2 * a);
-
         }
         else if (dis == 0) {
-            double x;
             arr[0] = -b / (2 * a);
-
-        } //else {
-            //System.out.println("Уравнение не имеет действительных корней");
-       // }
+        }
 
         return arr;
     }
