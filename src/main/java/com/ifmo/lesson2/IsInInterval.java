@@ -25,9 +25,9 @@ public class IsInInterval {
 
     public static String isInInterval(int rnd) {
     if (rnd>25& rnd<100) {
-        return "Число "+rnd+" попадает в интервал";
+        return "Число "+rnd+" содержится в интервале (25,100)";
     }
-    else return "Число "+rnd+" не попадает в интервал";
+    else return "Число "+rnd+" содержится в интервале (25,100)";
     }
 
 }
