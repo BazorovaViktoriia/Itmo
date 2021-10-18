@@ -15,7 +15,6 @@ public class LuckyTickets {
         System.out.println(luckyTickets());
     }
 
-
     public static int luckyTickets() {
        int x=0;
        int cnt=0;
