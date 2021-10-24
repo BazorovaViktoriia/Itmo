@@ -6,3 +6,4 @@ public class Minus implements Operations {
         return a-b;
     }
 }
+

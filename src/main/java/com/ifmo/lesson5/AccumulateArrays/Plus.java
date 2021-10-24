@@ -6,3 +6,4 @@ public class Plus implements Operations {
         return a+b;
     }
 }
+

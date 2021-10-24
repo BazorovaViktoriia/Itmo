@@ -6,3 +6,4 @@ public class Multy implements Operations {
         return 0;
     }
 }
+
