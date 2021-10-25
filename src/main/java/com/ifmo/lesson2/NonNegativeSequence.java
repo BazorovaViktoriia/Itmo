@@ -7,7 +7,7 @@ public class NonNegativeSequence {
      */
     public static void main(String[] args) {
         int first = 90;
-       while (first>0){
+       while (first>=0){
            System.out.printf(first+" ");
            first-=5;
        }
