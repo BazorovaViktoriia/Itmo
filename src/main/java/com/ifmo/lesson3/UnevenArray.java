@@ -8,7 +8,6 @@ public class UnevenArray {
      */
     public static void main(String[] args) {
         int[] unevenArray = unevenArray();
-        int[] unevenArray = unevenArray();
         for (int i=0; i<unevenArray.length; i++) {
             System.out.printf(unevenArray[i]+" " );
         }
@@ -17,7 +16,6 @@ public class UnevenArray {
         for (int i=49; i>=0; i--) {
             System.out.printf(unevenArray[i]+" ");
         }
-
     }
 
     public static int[] unevenArray() {
