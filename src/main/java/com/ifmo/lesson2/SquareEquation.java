@@ -34,6 +34,6 @@ public class SquareEquation {
             return arr;
         }
 
-        return new double[1];
+        return null;
     }
 }
