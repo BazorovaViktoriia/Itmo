@@ -13,26 +13,27 @@ public class SquareEquation {
         double a = 2;
         double b = -9;
         double c = 9;
-
         double[] roots = squareEquationRoots(a, b, c);
 
         System.out.println(Arrays.toString(roots));
     }
-
     /*
     Возвращает массив из двух корней или null, если таковых нет.
      */
     public static double[] squareEquationRoots(double a, double b, double c) {
-        double[] arr = new double[2];
         double dis = b * b - 4 * a * c;
         if (dis > 0) {
+            double[] arr = new double[2];
             arr[0] = (-b - Math.sqrt(dis)) / (2 * a);
             arr[1] = (-b + Math.sqrt(dis)) / (2 * a);
+            return arr;
         }
         else if (dis == 0) {
+            double[] arr = new double[1];
             arr[0] = -b / (2 * a);
+            return arr;
         }
 
-        return arr;
+        return new double[1];
     }
 }
