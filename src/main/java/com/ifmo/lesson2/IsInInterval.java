@@ -22,6 +22,7 @@ public class IsInInterval {
         int a=5+num.nextInt(155);
         return a;
     }
+
     public static String isInInterval(int rnd) {
     if (rnd>25&rnd<100) {
         return "Число "+rnd+" содержится в интервале (25,100)";
