@@ -15,12 +15,9 @@ public class UnluckyNumbers {
 
     public static int unluckyNumbersCount() {
         int cnt=0;
-        for(int i=4;i<=99994;i++){
+        for(int i=3;i<=99999;i++){
             String s=String.valueOf(i);
-            if(s.indexOf('4')!=-1){
-                cnt++;
-            }
-            else if(s.indexOf('1')!=-1&s.indexOf('1')+1==s.indexOf('3')){
+            if(s.contains("4")||s.contains("13")){
                 cnt++;
             }
         }
