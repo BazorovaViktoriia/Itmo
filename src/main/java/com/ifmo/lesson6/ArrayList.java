@@ -1,5 +1,6 @@
 package com.ifmo.lesson6;
 
+import java.sql.Array;
 import java.util.Iterator;
 
 /**
@@ -21,10 +22,12 @@ public class ArrayList implements List {
     private Object[] values;
 
     public ArrayList() {
+
         this(DEFAULT_SIZE);
     }
 
     public ArrayList(int initialSize) {
+
         values = new Object[initialSize];
     }
 
@@ -46,17 +49,20 @@ public class ArrayList implements List {
     /** {@inheritDoc} */
     @Override
     public Object get(int i) {
-        for (int n=0; n<= values.length; n++) {
-            if (n == i) {
-                return values[n];
-            }
+        if (i<0) {                 //проверка на null
+            return null;
         }
-        return null;
+                return values[i];
     }
+
+
 
     /** {@inheritDoc} */
     @Override
     public Object remove(int i) {
+        if(i<0){
+            return null;
+        }
         for (int n=0; n<= values.length; n++) {
             if (n == i) {
                 values[n] = null;
@@ -73,8 +79,19 @@ public class ArrayList implements List {
     /** {@inheritDoc} */
     @Override
     public Iterator iterator() {
-        // TODO implement.
 
-        return null;
+        return new Iterator() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Object next() {
+                return null;
+            }
+        };
+
+        }
     }
-}
+
