@@ -18,9 +18,7 @@ import java.util.Iterator;
  */
 public class ArrayList implements List {
     private static final int DEFAULT_SIZE = 10;
-
     private Object[] values;
-
     public ArrayList() {
 
         this(DEFAULT_SIZE);
@@ -34,17 +32,6 @@ public class ArrayList implements List {
     /** {@inheritDoc} */
     @Override
     public void add(Object val) {
-           /*  for (int i=0; i<= values.length; i++){
-          if (values[i]==null) {                               // пробегаемся по массиву и ищем где значение равно null
-              values[i]=val;                                  // если нашли null то кладем в эту ячейку переданный объект
-          }
-          else {                                             // в противном случае создаем новый массив
-              Object[] newValues = new Object[values.length*2];
-              System.arraycopy(values,0,newValues,0,newValues.length);
-              newValues[values.length+1]=val;
-          }
-       }
-    }*/
             if (values[values.length - 1] != null) {
                 Object[] newValues = new Object[values.length * 2];
                 for (int i=0; i<= newValues.length-1; i++) {
@@ -53,7 +40,7 @@ public class ArrayList implements List {
                     }
             }
                 else {
-                    for (int i=0; i<= values.length; i++){
+                    for (int i=0; i< values.length; i++){
                         if (values[i]==null) {
                             values[i]=val;
                         }
