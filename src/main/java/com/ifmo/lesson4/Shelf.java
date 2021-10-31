@@ -1,6 +1,4 @@
-package lesson4_;
-
-import java.util.Objects;
+package com.ifmo.lesson4;
 
 public class Shelf {
 

@@ -1,4 +1,4 @@
-package lesson4_;
+package com.ifmo.lesson4;
 
 import java.util.Objects;
 
