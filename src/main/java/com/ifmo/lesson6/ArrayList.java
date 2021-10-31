@@ -39,6 +39,7 @@ public class ArrayList implements List {
                         newValues[i]=val;                                  // если нашли null то кладем в эту ячейку переданный объект
                     }
             }
+            }
                 else {
                     for (int i=0; i< values.length; i++){
                         if (values[i]==null) {
@@ -47,14 +48,12 @@ public class ArrayList implements List {
                     }
                 }
             }
-        }
-
 
 
     /** {@inheritDoc} */
     @Override
     public Object get(int i) {
-        if (i<0) {                 //проверка на null
+        if (i<0|| i> values.length) {                 //проверка на null
             return null;
         }
                 return values[i];
@@ -65,7 +64,7 @@ public class ArrayList implements List {
     /** {@inheritDoc} */
     @Override
     public Object remove(int i) {
-        if(i<0){
+        if(i<0||i> values.length){
             return null;
         }
         for (int n=0; n<= values.length; n++) {
