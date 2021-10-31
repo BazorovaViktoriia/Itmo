@@ -32,7 +32,7 @@ public class ArrayList implements List {
     /** {@inheritDoc} */
     @Override
     public void add(Object val) {
-        if(pointer == values.length-1) {
+        if(pointer == values.length) {
             Object[] newValues = new Object[values.length*2+1];
             System.arraycopy(values,0,newValues,0,values.length);
         }
