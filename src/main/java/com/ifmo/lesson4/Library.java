@@ -54,7 +54,7 @@ public class Library {
      * @return {@code True} if book successfully added, {@code false} otherwise.
      */
     public boolean put(Book book, int quantity) {
-        if(cnt>=shelves.length){
+        if(cnt>shelves.length){
             return false;
         }
         for (int i=0; i<=shelves.length-1; i++) {
