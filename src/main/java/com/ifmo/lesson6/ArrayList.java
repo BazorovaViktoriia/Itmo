@@ -1,5 +1,5 @@
 package com.ifmo.lesson6;
-
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -18,6 +18,7 @@ import java.util.Iterator;
 public class ArrayList implements List {
     private static final int DEFAULT_SIZE = 10;
     private Object[] values;
+    private int pointer = 0;
     public ArrayList() {
 
         this(DEFAULT_SIZE);
@@ -31,25 +32,14 @@ public class ArrayList implements List {
     /** {@inheritDoc} */
     @Override
     public void add(Object val) {
-            if (values[values.length - 1] != null) {
-                Object[] newValues = new Object[values.length * 2];
-                for (int i=0; i<= newValues.length-1; i++) {
-                    newValues[i] = values[i];
-                }
-                for (int i=0; i<= newValues.length-1; i++) {
-                    if (newValues[i] == null) {                               // пробегаемся по массиву и ищем где значение равно null
-                        newValues[i] = val;                                  // если нашли null то кладем в эту ячейку переданный объект
-                    }
-                }
-            }
-                else {
-                    for (int i=0; i<= values.length-1; i++){
-                        if (values[i]==null) {
-                            values[i]=val;
-                        }
-                    }
-                }
-            }
+        if(pointer == values.length-1) {
+            Object[] newValues = new Object[values.length*2+1];
+            System.arraycopy(values,0,newValues,0,values.length);
+        }
+        values[pointer++]=val;
+
+        }
+
 
 
     /** {@inheritDoc} */
@@ -60,8 +50,6 @@ public class ArrayList implements List {
         }
                 return values[i];
     }
-
-
 
     /** {@inheritDoc} */
     @Override
