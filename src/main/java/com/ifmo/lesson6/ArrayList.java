@@ -1,6 +1,5 @@
 package com.ifmo.lesson6;
 
-import java.sql.Array;
 import java.util.Iterator;
 
 /**
@@ -35,10 +34,13 @@ public class ArrayList implements List {
             if (values[values.length - 1] != null) {
                 Object[] newValues = new Object[values.length * 2];
                 for (int i=0; i<= newValues.length-1; i++) {
-                    if (newValues[i]==null) {                               // пробегаемся по массиву и ищем где значение равно null
-                        newValues[i]=val;                                  // если нашли null то кладем в эту ячейку переданный объект
+                    newValues[i] = values[i];
+                }
+                for (int i=0; i<= newValues.length-1; i++) {
+                    if (newValues[i] == null) {                               // пробегаемся по массиву и ищем где значение равно null
+                        newValues[i] = val;                                  // если нашли null то кладем в эту ячейку переданный объект
                     }
-            }
+                }
             }
                 else {
                     for (int i=0; i<= values.length-1; i++){
