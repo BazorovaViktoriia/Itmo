@@ -39,10 +39,11 @@ package com.ifmo.lesson4;
 public class Library {
 
     private Shelf[] shelves;
+    int cnt=0;
 
     public Library(int maxBookKinds) {
        shelves = new Shelf[maxBookKinds];
-        // Возможно здесь следует сынициализировать массив.
+       cnt = maxBookKinds;
     }
 
     /**
@@ -53,14 +54,18 @@ public class Library {
      * @return {@code True} if book successfully added, {@code false} otherwise.
      */
     public boolean put(Book book, int quantity) {
-        for (int i=0; i< shelves.length; i++) {
+        if(cnt>shelves.length){
+            return false;
+        }
+        for (int i=0; i<=shelves.length-1; i++) {
             Shelf shelf = shelves[i];
-            if (shelf==null) {
-                shelves[i] = new Shelf(book, quantity);
+            if (shelf.getBook().equals(book)) {
+                shelf.setQuantity(shelf.getQuantity() + quantity);
                 return true;
             }
-            else if (shelf.getBook().equals(book)) {
-                shelf.setQuantity(shelf.getQuantity() + quantity);
+            if (shelf==null) {
+                shelves[i] = new Shelf(book, quantity);
+                cnt++;
                 return true;
             }
         }
