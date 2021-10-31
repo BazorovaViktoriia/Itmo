@@ -36,7 +36,8 @@ public class ArrayList implements List {
             Object[] newValues = new Object[values.length*2+1];
             System.arraycopy(values,0,newValues,0,values.length);
         }
-        values[pointer++]=val;
+        values[pointer]=val;
+        pointer++;
 
         }
 
