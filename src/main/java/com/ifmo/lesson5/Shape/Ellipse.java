@@ -4,6 +4,7 @@ package com.ifmo.lesson5.Shape;
 
         @Override
         public  double square3 () {
+
             return 1/2*(a*b);
         }
     }
