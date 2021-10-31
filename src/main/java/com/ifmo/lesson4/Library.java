@@ -80,9 +80,12 @@ public class Library {
      * @return Actual number of books taken.
      */
     public int take(Book book, int quantity) {
-        for(int i=0; i<=shelves.length; i++) {
-            if (shelves[i].getBook() == book && shelves[i].getQuantity() == quantity) {
+        for(int i=0; i<=shelves.length-1; i++) {
+            if (shelves[i].getBook() == book&& shelves[i].getQuantity() == quantity) {  //if it is the same book and the same quantity
                 return quantity;
+            }
+            if (shelves[i].getBook() == book&& shelves[i].getQuantity() > quantity) {    //if it is the same book and we have move book than we need
+                return shelves[i].getQuantity() - quantity;
             }
             if (shelves[i].getBook() == book && shelves[i].getQuantity() < quantity) {
                 int a = shelves[i].getQuantity();
