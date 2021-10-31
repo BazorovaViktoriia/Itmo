@@ -35,6 +35,12 @@ public class ArrayList implements List {
         if(pointer == values.length) {
             Object[] newValues = new Object[values.length*2+1];
             System.arraycopy(values,0,newValues,0,values.length);
+            for(int i=0; i< newValues.length; i++) {
+                if (newValues[i]==null){
+                    newValues[i]=val;
+                }
+            }
+
         }
         values[pointer]=val;
         pointer++;
