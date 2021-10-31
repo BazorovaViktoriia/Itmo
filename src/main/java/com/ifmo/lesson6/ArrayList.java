@@ -41,7 +41,7 @@ public class ArrayList implements List {
             }
             }
                 else {
-                    for (int i=0; i< values.length; i++){
+                    for (int i=0; i<= values.length-1; i++){
                         if (values[i]==null) {
                             values[i]=val;
                         }
