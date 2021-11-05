@@ -4,10 +4,7 @@ import com.ifmo.lesson11.inner.Message;
 import com.ifmo.lesson11.inner.MessageGenerator;
 import com.ifmo.lesson11.inner.MessagePriority;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*
     Реализуйте все методы.
@@ -68,10 +65,27 @@ public class Tasks1 {
     }
 
     private static void countUniqueMessages(List<Message> messages) {
+        int cnt=0;     //create variable for printing unique values
+        Map<Integer, Integer> mapa = new HashMap<>(); //create Map
+
+        for (Message message:messages) {          //проходим по всем словам в переданном нам списке
+            if (mapa.containsKey(message.getCode())) {   //если в Мар слово присутствует, то берем значение этого ключа и увеличиваем на единицу
+                int value=  mapa.get(message.getCode());
+                value++;
+            }
+            else  {                      //добавляем в Мар слово если его там еще нет и начальное значение
+                mapa.put(message.getCode(),1);
+            }
+        }
+        for (Map.Entry entry : mapa.entrySet()) {
+            if (entry.getValue().equals(1)) {
+                cnt++;
+            }
+        }
+        System.out.println(cnt);
         // Сосчитайте количество уникальных сообщений.
         // Ответ необходимо вывести в консоль.
 
-        // TODO implement
     }
 
     private static List<Message> genuineMessagesInOriginalOrder(List<Message> messages) {
@@ -81,17 +95,35 @@ public class Tasks1 {
         // то на выходе должны получить:
         // [{URGENT, 4}, {HIGH, 9}, {LOW, 3}].
         // Т.е. остались только уникальные значения, и порядок их поступления сохранен.
+        Map<Message, Integer> mapa = new LinkedHashMap<>();
+        for (Message message: messages){
+            if (mapa.containsKey(message)){
+                mapa.replace(message, mapa.get(message) + 1);
+            } else {
+                mapa.put(message, 1);
+            }
+        }
 
-        // TODO implement
+        List<Message> list = new ArrayList<>();
+        for (Map.Entry<Message, Integer> entry : mapa.entrySet()) {
+            if (entry.getValue() == 1){
+                list.add(entry.getKey());
+            }
+        }
 
-        return messages;
+        return list;
+
     }
 
     private static void removeEach(Collection<Message> messages, MessagePriority priority) {
         // Удалить из коллекции каждое сообщение с заданным приоритетом.
         System.out.printf("Before remove each: %s, %s\n", priority, messages);
 
-
+        for (Message mess : messages) {
+            if(mess.getPriority().equals(priority)) {
+                messages.remove(mess);
+            }
+        }
 
         System.out.printf("After remove each: %s, %s\n", priority, messages);
     }
@@ -100,7 +132,13 @@ public class Tasks1 {
         // Удалить из коллекции все сообщения, кроме тех, которые имеют заданный приоритет.
         System.out.printf("Before remove other: %s, %s\n", priority, messages);
 
-        // TODO implement
+        for (Message mess : messages) {
+            if(mess.getPriority().equals(priority)) {
+            }
+            else {
+                messages.remove(mess);
+            }
+        }
 
         System.out.printf("After remove other: %s, %s\n", priority, messages);
     }
