@@ -7,14 +7,14 @@ import java.util.Iterator;
  * элемент харнит ссылку на следующий. Список
  * оканчивается ссылкой со значением {@code null}.
  */
-public class LinkedList<T> implements List<T>, Stack<T>, Queue<T> {
+public class LinkedList implements List, Stack, Queue {
     /** Ссылка на первый элемент списка. */
-    private Item<T> head;
+    private Item head;
 
     /** {@inheritDoc} */
     @Override
-    public void add(T val) {
-        Item<T> item = new Item<>(val);
+    public void add(Object val) {
+        Item item = new Item<>(val);
         if (head==null){
             head=item;
         }
@@ -32,21 +32,19 @@ public class LinkedList<T> implements List<T>, Stack<T>, Queue<T> {
 
 
     @Override
-    public T take() {
-        // TODO implement.
-
-        return null;
+    public Object take() {
+        return remove(0);
     }
 
     /** {@inheritDoc} */
     @Override
-    public T get(int i) {
+    public Object get(int i) {
         if (i<0||head ==null) {
             return null;
         }
 
         int cnt = 0;
-        Item<T> item = head;
+        Item item = head;
         while (true){
             if (cnt==i){
                 return item.value;
@@ -57,39 +55,80 @@ public class LinkedList<T> implements List<T>, Stack<T>, Queue<T> {
     }
 
     @Override
-    public T remove(int i) {
-
-
-        return null;
+    public Object remove(int i) {
+        if(head == null){
+            return null;
+        }
+        if (i == 0){
+            Item newHead = head;
+            head = newHead.next;
+            return newHead.value;
+        } else {
+            Item newHead = head;
+            Item last = null;
+            for (int j = 1; j <= i; j++) {
+                if(newHead.next == null){
+                    return null;
+                }
+                last = newHead;
+                newHead = newHead.next;
+            }
+            last.next = newHead.next;
+            return newHead.value;
+        }
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<Object> iterator() {
+        Iterator it = new Iterator() {
+            Item current = head;
 
-        return new Iterator<T>() {
             @Override
             public boolean hasNext() {
-                return false;
+                if (current == null){
+                    return false;
+                }
+                return true;
             }
 
             @Override
-            public T next() {
-                return null;
+            public Object next() {
+                if (!this.hasNext()) {
+                    return null;
+                }
+                Item current = this.current;
+                this.current = current.next;
+                return current.value;
             }
         };
+
+        return it;
     }
 
     /** {@inheritDoc} */
     @Override
-    public void push(T value) {
-        // TODO implement.
+    public void push(Object value) {
+       this.add(value);
     }
 
     /** {@inheritDoc} */
     @Override
-    public T pop() {
-        // TODO implement.
-
-        return null;
+    public Object pop() {
+        if(head == null){
+            return null;
+        } else if (head.next == null){
+            Item current = head;
+            head = null;
+            return current.value;
+        } else {
+            Item current = head.next;
+            Item last = head;
+            while (current.next != null) {
+                last = current;
+                current = current.next;
+            }
+            last.next = null;
+            return current.value;
+        }
     }
 }

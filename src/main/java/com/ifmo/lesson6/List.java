@@ -1,12 +1,12 @@
 package com.ifmo.lesson6;
 
-public interface List<T> extends Iterable<T> {
+public interface List extends Iterable {
     /**
      * Добавляет значение в конец списка.
      *
      * @param val Значение, которое будет добавлено.
      */
-    void add(T val);
+    void add(Object val);
 
     /**
      * Извлекает значение из списка по индексу.
@@ -15,7 +15,7 @@ public interface List<T> extends Iterable<T> {
      * @return Значение, которое находится по индексу
      * или {@code null}, если не найдено.
      */
-    T get(int i);
+    Object get(int i);
 
     /**
      * Удаляет значение по индексу и возвращает
@@ -24,5 +24,5 @@ public interface List<T> extends Iterable<T> {
      * @param i Индекс, по которому будет удален элемент.
      * @return Удаленное значение или {@code null}, если не найдено.
      */
-    T remove(int i);
+    Object remove(int i);
 }
