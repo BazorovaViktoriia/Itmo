@@ -11,6 +11,7 @@ import java.util.Random;
 public class RandomInputStream extends InputStream {
     private final Random random;
     private final long length;
+    long number;
 
 
     public RandomInputStream(Random random, long length) {
@@ -20,7 +21,6 @@ public class RandomInputStream extends InputStream {
 
         @Override
         public int read() throws IOException {
-                return random.nextInt(256);
+            return (length - number++) > 0? random.nextInt(256): -1;
         }
     }
-
