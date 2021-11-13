@@ -55,20 +55,21 @@ public class ArrayList implements List {
     /** {@inheritDoc} */
     @Override
     public Object remove(int i) {
-        if(i<0||i> values.length){
+        if(i<0||i>=values.length){
             return null;
         }
-        for (int n=0; n<= values.length; n++) {
+        for (int n=0; n<values.length; n++) {
             if (n == i) {
                 values[n] = null;
                 if (values[n + 1] != null) {
-                    for (int ind = n + 1; ind <= values.length; ind++) {
+                    for (int ind = n + 1; ind <values.length; ind++) {
                         values[ind] = values[ind - 1];
                     }
                 }
+                return values[n] ;
             }
         }
-        return values;
+        return null;
     }
 
     /** {@inheritDoc} */
@@ -83,6 +84,7 @@ public class ArrayList implements List {
 
             @Override
             public Object next() {
+
                 return null;
             }
         };
