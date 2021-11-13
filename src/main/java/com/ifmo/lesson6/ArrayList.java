@@ -25,7 +25,6 @@ public class ArrayList implements List {
     }
 
     public ArrayList(int initialSize) {
-
         values = new Object[initialSize];
     }
 
@@ -40,8 +39,6 @@ public class ArrayList implements List {
         values[pointer]=val;
         pointer++;
     }
-
-
 
     /** {@inheritDoc} */
     @Override
@@ -75,20 +72,19 @@ public class ArrayList implements List {
     /** {@inheritDoc} */
     @Override
     public Iterator iterator() {
+        Iterator it = new Iterator() {
+            private int currentIndex = 0;
 
-        return new Iterator() {
             @Override
             public boolean hasNext() {
-                return false;
+                return currentIndex < values.length && values[currentIndex] != null;
             }
-
             @Override
             public Object next() {
-
-                return null;
+                return values[currentIndex++];
             }
         };
-
+        return it;
         }
     }
 
