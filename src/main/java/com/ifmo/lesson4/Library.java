@@ -54,18 +54,15 @@ public class Library {
      * @return {@code True} if book successfully added, {@code false} otherwise.
      */
     public boolean put(Book book, int quantity) {
-        if(cnt>shelves.length){
-            return false;
+        int cellIndex;
+        if ((cellIndex = findBook(book)) > -1) {
+            Shelf cell = shelves[cellIndex];
+            cell.setQuantity(cell.getQuantity() + quantity);
+            return true;
         }
-        for (int i=0; i<=shelves.length-1; i++) {
-            Shelf shelf = shelves[i];
-            if (shelf.getBook().equals(book)) {
-                shelf.setQuantity(shelf.getQuantity() + quantity);
-                return true;
-            }
-            if (shelf==null) {
+        for (int i = 0; i < shelves.length; i++) {
+            if (shelves[i] == null) {
                 shelves[i] = new Shelf(book, quantity);
-                cnt++;
                 return true;
             }
         }
@@ -80,19 +77,30 @@ public class Library {
      * @return Actual number of books taken.
      */
     public int take(Book book, int quantity) {
-        for(int i=0; i<=shelves.length-1; i++) {
-            if (shelves[i].getBook() == book&& shelves[i].getQuantity() == quantity) {  //if it is the same book and the same quantity
+        int cellIndex = findBook(book);
+        if (cellIndex > -1) {
+            int cellQuantity = shelves[cellIndex].getQuantity();
+            if (cellQuantity > quantity) {
+                shelves[cellIndex].setQuantity(cellQuantity - quantity);
                 return quantity;
-            }
-            if (shelves[i].getBook() == book&& shelves[i].getQuantity() > quantity) {    //if it is the same book and we have move book than we need
-                return shelves[i].getQuantity() - quantity;
-            }
-            if (shelves[i].getBook() == book && shelves[i].getQuantity() < quantity) {
-                int a = shelves[i].getQuantity();
-                shelves[i] = null;
-                return a;
+            } else {
+                shelves[cellIndex] = null;
+                return cellQuantity;
             }
         }
         return 0;
+    }
+
+    private int findBook(Book book) {
+        int index = -1;
+        for (int i = 0; i < shelves.length; i++) {
+            if (shelves[i] != null) {
+                if (shelves[i].getBook().author.equals(book.author)
+                        && shelves[i].getBook().title.equals(book.title)) {
+                    index = i;
+                }
+            }
+        }
+        return index;
     }
 }
