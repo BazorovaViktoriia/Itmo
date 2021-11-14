@@ -42,7 +42,7 @@ public class Library {
     int cnt=0;
 
     public Library(int maxBookKinds) {
-       shelves = new Shelf[maxBookKinds];
+       shelves = new Shelf[maxBookKinds]; //
        cnt = maxBookKinds;
     }
 
