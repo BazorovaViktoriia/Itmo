@@ -4,19 +4,12 @@ import com.ifmo.lesson11.inner.Message;
 import com.ifmo.lesson11.inner.MessagePriority;
 import com.ifmo.lesson11.inner.User;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.NavigableSet;
+import java.util.*;
 
 import static com.ifmo.lesson11.inner.UserGenerator.generate;
 
-/*
-    Реализуйте все методы.
- */
 public class Tasks2 {
     public static void main(String[] args) {
-
         System.out.println(generate(10));
     }
 
@@ -26,27 +19,8 @@ public class Tasks2 {
      * @param messages Сообщения.
      */
     private static void sortByPriority(List<Message> messages) {
-        List<Message> low = new ArrayList<>();
-        List<Message> medium = new ArrayList<>();
-        List<Message> high = new ArrayList<>();
-        List<Message> urgent = new ArrayList<>();
-        for(int i=0; i<messages.size(); i++) {
-            if (messages.get(i).getPriority().fromOrdinal(0) == MessagePriority.LOW) {
-                low.add(messages.get(i));
-            }
-            if (messages.get(i).getPriority().fromOrdinal(1) == MessagePriority.MEDIUM) {
-                medium.add(messages.get(i));
-            }
-            if (messages.get(i).getPriority().fromOrdinal(2) == MessagePriority.HIGH) {
-                high.add(messages.get(i));
-            }
-            if (messages.get(i).getPriority().fromOrdinal(3) == MessagePriority.URGENT) {
-                urgent.add(messages.get(i));
-            }
-        }
-        messages.clear();
-        System.arraycopy();
-
+        messages.sort(Comparator.comparing(Message::getPriority));
+    }
 
     /**
      * Возвращает Set, отсортированный по компании и имени пользователя.
@@ -55,9 +29,11 @@ public class Tasks2 {
      * @return Сортированный Set.
      */
     private static NavigableSet<User> sortedByCompanyAndName(List<User> users) {
-        // TODO implement.
+            users.sort((u1, u2) -> (u1.getCompany().compareTo(u2.getCompany()) == 0)
+                    ? u1.getName().compareTo(u2.getName())
+                    : u1.getCompany().compareTo(u2.getCompany()));
 
-        return Collections.emptyNavigableSet();
+            return new TreeSet<>(users);
     }
 
     /**
@@ -67,9 +43,12 @@ public class Tasks2 {
      * @return Сортированный Set.
      */
     private static NavigableSet<User> sortedBySalaryAndName(List<User> users) {
-        // TODO implement.
+        users.sort((u1, u2) -> (u1.getSalary() - u2.getSalary() == 0)
+                ? u1.getName().compareTo(u2.getName())
+                : u1.getSalary() - u2.getSalary()
+        );
 
-        return Collections.emptyNavigableSet();
+        return new TreeSet<>(users);
     }
 
     /**
@@ -79,9 +58,17 @@ public class Tasks2 {
      * @return Сортированный Set.
      */
     private static NavigableSet<User> sortedBySalaryAgeCompanyAndName(List<User> users) {
-        // TODO implement.
+        users.sort(Tasks2::compareUserBySalaryAgeCompanyAndName);
 
-        return Collections.emptyNavigableSet();
+        return new TreeSet<>(users);
+        }
+
+    private static int compareUserBySalaryAgeCompanyAndName(User u1, User u2){
+        int result = 0;
+        if((result =(u1.getSalary() - u2.getSalary())) != 0) return result;
+        if((result =(u1.getAge() - u2.getAge()))!= 0) return result;
+        if((result =(u1.getCompany().compareTo(u2.getCompany()))) != 0) return result;
+        return u1.getName().compareTo(u2.getName());
     }
 
-}
+    }

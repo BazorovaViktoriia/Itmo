@@ -74,9 +74,8 @@ public class TopWords {
         return  mapaFinish;
     }
 
-    public static Map<String, Integer> getKeyFromValue(Map hm, ArrayList<Integer> arr) {
+   /* public static Map<String, Integer> getKeyFromValue(Map hm, ArrayList<Integer> arr) {
         Map<String, Integer> mapaFinish = new HashMap<>(10);
-
         for (Object o : hm.keySet()) {
             if (hm.get(o).equals(value)) {
                 return o;
@@ -84,6 +83,8 @@ public class TopWords {
         }
         return null;
     }
+
+    */
 
     /**
      * Возвращает 10 наиболее часто встречающихся фраз и соответствующие счётчики.
@@ -93,9 +94,18 @@ public class TopWords {
      * @return Топ 10 фраз.
      */
     public static Map<String, Integer> top10Phrases(List<String> words) {
-        // todo implement
+        Map<String, Count> hashMap = new HashMap<>();
+        for (int i = 0; i < words.size() - 1; i++) {
+            String item = words.get(i) + " " + words.get(i + 1);
+            if (hashMap.containsKey(item)) {
+                hashMap.get(item).increase();
+            } else {
+                hashMap.put(item, new Count(item));
+            }
+        }
 
-        return Map.of();
+        return GetMaxCount(hashMap, 10);
+
     }
 
     /**
@@ -105,8 +115,45 @@ public class TopWords {
      * @return Map где ключ - символ, а значение - сколько раз он встретился в списке слов.
      */
     public static Map<Character, Integer> charactersFrequency(List<String> words) {
-        // todo implement
+        Map<Character, Count> hashMap = new HashMap<>();
+        for (String word : words) {
+            char[] chars = word.toCharArray();
+            for (char c : chars) {
+                if (hashMap.containsKey(c)) {
+                    hashMap.get(c).increase();
+                } else {
+                    hashMap.put(c, new Count(c));
+                }
+            }
+        }
 
-        return Map.of();
+        return GetMaxCount(hashMap, 10);
     }
-}
+
+    public static <T> Map<T, Integer> GetMaxCount(Map<T, Count> map, int length){
+        Count[] counts = map.values().stream().sorted((x, y) -> Integer.compare(y.count, x.count)).toArray(Count[]::new);
+
+        HashMap<T, Integer> maps = new HashMap<>(length);
+        for (int i = 0; i < length; i++) {
+            Count<T> count = counts[i];
+            maps.put(count.word, count.count);
+        }
+
+        return maps;
+    }
+    }
+
+        class Count<T>{
+            public final T word;
+            public int count;
+
+            public Count(T word) {
+                this.word = word;
+                count = 1;
+            }
+
+            public void increase(){
+                count++;
+            }
+        }
+

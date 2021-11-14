@@ -16,22 +16,18 @@ public class Message {
     }
 
     public MessagePriority getPriority() {
-
         return priority;
     }
 
     public void setPriority(MessagePriority priority) {
-
         this.priority = priority;
     }
 
     public int getCode() {
-
         return code;
     }
 
     public void setCode(int code) {
-
         this.code = code;
     }
 
