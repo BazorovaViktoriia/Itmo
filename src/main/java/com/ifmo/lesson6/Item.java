@@ -8,12 +8,16 @@ package com.ifmo.lesson6;
  *     только для LinkedList'a.
  * </p>
  */
-class Item<Object> {
-    /** Значение элемента. */
-    Object value;
+class Item<T> {
+    /**
+     * Значение элемента.
+     */
+    T value;
 
-    /** Ссылка на следующий элемент. */
-    Item next;
+    /**
+     * Ссылка на следующий элемент.
+     */
+    Item<T> next;
 
     /**
      * Инициализирует элемент со значением
@@ -22,7 +26,7 @@ class Item<Object> {
      * @param value Значение, которое будет сохранено
      *              в этом элементе.
      */
-    Item(Object value) {
+    Item(T value) {
         this.value = value;
     }
 }

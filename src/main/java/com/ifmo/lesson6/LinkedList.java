@@ -7,128 +7,131 @@ import java.util.Iterator;
  * элемент харнит ссылку на следующий. Список
  * оканчивается ссылкой со значением {@code null}.
  */
-public class LinkedList implements List, Stack, Queue {
-    /** Ссылка на первый элемент списка. */
-    private Item head;
+public class LinkedList<T> implements List<T>, Stack<T>, Queue<T> {
+    /**
+     * Ссылка на первый элемент списка.
+     */
+    private Item<T> head;
 
-    /** {@inheritDoc} */
-    @Override
-    public void add(Object val) {
-        Item item = new Item<>(val);
-        if (head==null){
-            head=item;
+    private class LinkedListIterator implements Iterator<T> {
+
+        Item<T> item = head;
+
+        @Override
+        public boolean hasNext() {
+            return item != null;
         }
-        else {
-            Item current = head;
-            while (true){
-                if (current.next == null){
-                    current.next = item;
-                    break;
-                }
-                current = current.next;
+
+        @Override
+        public T next() {
+            if(hasNext()) {
+                T value = item.value;
+                item = item.next;
+                return value;
             }
+            return null;
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Object take() {
+    public void add(T val) {
+        if (head == null) {
+            head = new Item<T>(val);
+        } else {
+            Item item = head;
+            while (item.next != null) {
+                item = item.next;
+            }
+            item.next = new Item<T>(val);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T take() {
         return remove(0);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Object get(int i) {
-        if (i<0||head ==null) {
-            return null;
-        }
+    public T get(int i) {
+        Item<T> item = find(i);
+        return item != null ? item.value : null;
+    }
 
-        int cnt = 0;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T remove(int i) {
+        T value = null;
+        if (i == 0) {
+            if (head != null) {
+                value = head.value;
+                head = head.next;
+            }
+        } else if (i > 0) {
+            Item<T> item = find(i - 1);
+            if (item != null) {
+                if (item.next != null) {
+                    value = item.next.value;
+                    item.next = item.next.next;
+                }
+            }
+        }
+        return value;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void push(T value) {
         Item item = head;
-        while (true){
-            if (cnt==i){
-                return item.value;
-            }
-            item = item.next;
-            cnt++;
-        }
+        head = new Item<T>(value);
+        head.next = item;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Object remove(int i) {
-        if(head == null){
-            return null;
-        }
-        if (i == 0){
-            Item newHead = head;
-            head = newHead.next;
-            return newHead.value;
-        } else {
-            Item newHead = head;
-            Item last = null;
-            for (int j = 1; j <= i; j++) {
-                if(newHead.next == null){
-                    return null;
-                }
-                last = newHead;
-                newHead = newHead.next;
-            }
-            last.next = newHead.next;
-            return newHead.value;
-        }
+    public T pop() {
+        return remove(0);
     }
 
-    @Override
-    public Iterator<Object> iterator() {
-        Iterator it = new Iterator() {
-            Item current = head;
-
-            @Override
-            public boolean hasNext() {
-                if (current == null){
-                    return false;
-                }
-                return true;
+    /**
+     * Метод поиска элементов односвязного списка
+     *
+     * @param i индекс элемента
+     * @return Элемент либо {@code null} случаи если не найден данный эелемент
+     */
+    private Item<T> find(int i) {
+        if (i == 0) {
+            return head;
+        } else if (i > 0) {
+            Item<T> item = head;
+            for (int j = 0; j <= i; j++) {
+                if (item == null) return null;
+                if (j == i) return item;
+                item = item.next;
             }
-
-            @Override
-            public Object next() {
-                if (!this.hasNext()) {
-                    return null;
-                }
-                Item current = this.current;
-                this.current = current.next;
-                return current.value;
-            }
-        };
-
-        return it;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void push(Object value) {
-       this.add(value);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Object pop() {
-        if(head == null){
-            return null;
-        } else if (head.next == null){
-            Item current = head;
-            head = null;
-            return current.value;
-        } else {
-            Item current = head.next;
-            Item last = head;
-            while (current.next != null) {
-                last = current;
-                current = current.next;
-            }
-            last.next = null;
-            return current.value;
         }
+        return null;
     }
 }

@@ -15,76 +15,89 @@ import java.util.Iterator;
  * |0|1|3|4|5|_|
  * Теперь при итерации по ним после 1 будет идти сразу 3, как в связном списке.
  */
-public class ArrayList implements List {
+public class ArrayList<T> implements List<T> {
     private static final int DEFAULT_SIZE = 10;
-    private Object[] values;
-    private int pointer = 0;
-    public ArrayList() {
 
+    private Object[] values;
+    private int tail;
+
+    private class ArrayListIterator implements Iterator<T> {
+
+        private int index;
+
+        @Override
+        public boolean hasNext() {
+            return index < tail;
+        }
+
+        @Override
+        public T next() {
+            return get(index++);
+        }
+    }
+
+    /**
+     * Создаёт новый {@link #ArrayList} с размером внутреннего массива по умолчанию.
+     */
+    public ArrayList() {
         this(DEFAULT_SIZE);
     }
 
+    /**
+     * Создаёт новый {@link #ArrayList} с размером внутреннего массива,
+     * равного {@code initialSize}.
+     *
+     * @param initialSize Начальный размер внутреннего массива.
+     */
     public ArrayList(int initialSize) {
         values = new Object[initialSize];
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void add(Object val) {
-        if (pointer==values.length){
-            Object[] newValues = new Object[values.length*2];
-            System.arraycopy(values, 0, newValues, 0, values.length);
-            values = newValues;
-        }
-        values[pointer]=val;
-        pointer++;
+    public void add(T val) {
+        if (tail == values.length) reSize();
+        values[tail++] = val;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Object get(int i) {
-        if (i<0|| i> values.length) {                 //проверка на null
-            return null;
-        }
-                return values[i];
+    public T get(int i) {
+        if (i < 0 || i >= tail) return null;
+        return (T) values[i];
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Object remove(int i) {
-        if(i<0||i>=values.length){
-            return null;
+    public T remove(int i) {
+        if (i < 0 || i >= tail) return null;
+        T value = (T) values[i];
+        for (int j = i; j < tail - 1; j++) {
+            values[j] = values[j + 1];
         }
-        for (int n=0; n<values.length; n++) {
-            if (n == i) {
-                values[n] = null;
-                if (values[n + 1] != null) {
-                    for (int ind = n + 1; ind <values.length; ind++) {
-                        values[ind] = values[ind - 1];
-                    }
-                }
-                return values[n] ;
-            }
-        }
-        return null;
+        values[--tail] = null;
+        return value;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Iterator iterator() {
-        Iterator it = new Iterator() {
-            private int currentIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-                return currentIndex < values.length && values[currentIndex] != null;
-            }
-            @Override
-            public Object next() {
-                return values[currentIndex++];
-            }
-        };
-        return it;
-        }
+    public Iterator<T> iterator() {
+        return new ArrayListIterator();
     }
+
+    /**
+     * Метод расширяет внутренний массив в два раза
+     */
+    private void reSize() {
+        values = Arrays.copyOf(values, values.length * 2);
+    }
+}
 
